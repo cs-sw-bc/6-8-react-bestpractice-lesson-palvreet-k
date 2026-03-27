@@ -1,8 +1,8 @@
 // 1. Import createContext and useContext (useState is already imported)
-import { useState } from 'react'
+import { useState , createContext, useContext} from 'react'
 
 // 2. Create ThemeContext here
-// const ThemeContext = ...
+const ThemeContext = createContext(null);
 
 export default function ThemeDemo() {
   const [theme, setTheme] = useState('light')
@@ -10,6 +10,7 @@ export default function ThemeDemo() {
 
   return (
     // 3. Wrap the div below with ThemeContext and pass theme as the value
+    <ThemeContext value={{theme}}>
     <div className={'app-' + theme}>
 
       <nav className={'nav-' + theme}>
@@ -24,6 +25,7 @@ export default function ThemeDemo() {
       {page === 'about' && <AboutPage />}
 
     </div>
+    </ThemeContext>
   )
 }
 
@@ -47,8 +49,9 @@ function AboutPage() {
 }
 
 function Panel({ title, children }) {
-  // 4. Read theme from ThemeContext using useContext
-  const theme = 'light' // replace this line
+  // 4. Read theme from ThemeContext value using useContext
+  // const theme = 'light' // replace this line
+  const {theme} = useContext(ThemeContext);
 
   return (
     <section className={'panel-' + theme}>
@@ -59,8 +62,9 @@ function Panel({ title, children }) {
 }
 
 function Button({ children }) {
-  // 5. Read theme from ThemeContext using useContext
-  const theme = 'light' // replace this line
+  // 5. Read theme from ThemeContext value using useContext
+  // const theme = 'light' // replace this line
+  const {theme} = useContext(ThemeContext);
 
   return (
     <button className={'button-' + theme}>

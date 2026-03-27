@@ -1,25 +1,28 @@
 // 1. Import createContext and useContext (useState is already imported)
-import { useState } from 'react'
+import { createContext, useState , useContext} from 'react'
 
 // 2. Create UserContext here
-// const UserContext = ...
+const UserContext = createContext(null);
 
 export default function UserDemo() {
   const [name, setName] = useState('')
 
   return (
     // 3. Wrap the div below with UserContext and pass name and setName as the value
+    <UserContext value = {{name, setName}}>
     <div className="app-light">
       <NameInput />
       <Greeting />
     </div>
+    </UserContext>
   )
 }
 
 function NameInput() {
   // 4. Read name and setName from UserContext using useContext
-  const name = ''       // replace this line
-  const setName = () => {} // replace this line
+  // const name = ''       // replace this line
+  // const setName = () => {} // replace this line
+  const {name, setName} = useContext(UserContext);
 
   return (
     <div className="panel-light">
@@ -37,7 +40,8 @@ function NameInput() {
 
 function Greeting() {
   // 6. Read name from UserContext using useContext
-  const name = '' // replace this line
+  // const name = '' // replace this line
+  const {name} = useContext(UserContext);
 
   return (
     <div className="panel-light">
